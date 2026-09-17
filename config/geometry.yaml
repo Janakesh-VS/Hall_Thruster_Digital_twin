@@ -1,0 +1,268 @@
+# =============================================================================
+# PROMETHEUS — Parametric Reference Geometry
+# =============================================================================
+# IMPORTANT: The SIH presentation (source of truth for concept/architecture)
+# does NOT provide a dimensioned engineering drawing of the PROMETHEUS
+# thruster. Therefore every dimension below is explicitly tagged with a
+# `status` so nothing is silently presented as a real, sourced dimension:
+#
+#   SOURCE     -> taken directly from a specific cited document/drawing
+#   LITERATURE -> order-of-magnitude value consistent with published,
+#                 low/mid-power Hall-thruster designs (e.g. SPT-100 class),
+#                 used only to keep the reference geometry physically
+#                 plausible. NOT a claim that PROMETHEUS matches any
+#                 specific flight thruster.
+#   ASSUMED    -> chosen by the team for this reference geometry with no
+#                 external source; free to change.
+#   USER-DEFINED -> overridden by a user/judge via the dashboard.
+#
+# All values are stored in millimetres (mm) for lengths, degrees for angles.
+# Conversion to inches / radians / metres happens in code (src/geometry),
+# never by editing this file.
+# =============================================================================
+
+metadata:
+  project: "PROMETHEUS — Adaptive Erosion Control System for Hall-Effect Thrusters"
+  problem_statement_id: "SIH26226"
+  geometry_version: "0.1.0"
+  note: >
+    Reference / Assumed Geometry — for digital-twin demonstration only.
+    Does NOT represent a specific flight-qualified Hall thruster.
+
+# -----------------------------------------------------------------------------
+# DISCHARGE CHANNEL
+# -----------------------------------------------------------------------------
+channel_length:
+  value: 25.0
+  unit: mm
+  source: literature
+  status: LITERATURE
+  description: >
+    Axial length of the annular discharge channel. Order-of-magnitude
+    consistent with SPT-100-class (~1.35 kW) low/mid-power Hall thrusters
+    reported in open literature; not a measured PROMETHEUS dimension.
+
+channel_inner_radius:
+  value: 35.0
+  unit: mm
+  source: literature
+  status: LITERATURE
+  description: >
+    Inner radius of the annular discharge channel at the exit plane.
+    SPT-100-class order-of-magnitude reference value.
+
+channel_outer_radius:
+  value: 50.0
+  unit: mm
+  source: literature
+  status: LITERATURE
+  description: >
+    Outer radius of the annular discharge channel at the exit plane.
+    SPT-100-class order-of-magnitude reference value.
+
+# channel_width is DERIVED, not stored: channel_outer_radius - channel_inner_radius
+
+# -----------------------------------------------------------------------------
+# DIELECTRIC WALL / ROTATING LINER (core PROMETHEUS mechanism — no public
+# dimensioned source exists for this component; all ASSUMED)
+# -----------------------------------------------------------------------------
+wall_thickness:
+  value: 3.0
+  unit: mm
+  source: assumed
+  status: ASSUMED
+  description: >
+    Static structural dielectric wall thickness (boron nitride composite
+    class material), behind which the rotating liner sits.
+
+liner_thickness:
+  value: 1.5
+  unit: mm
+  source: assumed
+  status: ASSUMED
+  description: >
+    Radial thickness of the rotating dielectric liner. Must be less than
+    wall_thickness minus minimum mechanical clearance (validated in code).
+
+liner_radius:
+  value: 42.5
+  unit: mm
+  source: assumed
+  status: ASSUMED
+  description: >
+    Mean radius of the rotating liner, placed midway between
+    channel_inner_radius and channel_outer_radius by default.
+
+liner_axial_length:
+  value: 20.0
+  unit: mm
+  source: assumed
+  status: ASSUMED
+  description: >
+    Axial extent of the rotating liner along the channel. Slightly less
+    than channel_length to leave clearance at the anode end.
+
+liner_rotation_axis:
+  value: "channel_centerline"
+  unit: "n/a"
+  source: assumed
+  status: ASSUMED
+  description: >
+    The liner rotates circumferentially about the channel's central axis
+    (theta direction), driven independently of the stationary magnetic coils.
+
+liner_max_angular_speed:
+  value: 30.0
+  unit: rpm
+  source: assumed
+  status: ASSUMED
+  description: >
+    Maximum sustained rotation speed of the liner, limited by the stepper
+    motor + timing drive described in the presentation. Placeholder pending
+    actual actuator datasheet selection.
+
+liner_max_angular_acceleration:
+  value: 60.0
+  unit: rpm_per_s
+  source: assumed
+  status: ASSUMED
+  description: Maximum angular acceleration used to enforce non-instantaneous motion.
+
+mechanical_clearance_min:
+  value: 0.3
+  unit: mm
+  source: assumed
+  status: ASSUMED
+  description: Minimum required clearance between rotating liner and adjacent structure.
+
+# -----------------------------------------------------------------------------
+# MAGNETIC POLES / COILS
+# -----------------------------------------------------------------------------
+inner_pole_radius:
+  value: 30.0
+  unit: mm
+  source: assumed
+  status: ASSUMED
+  description: Outer radius of the inner magnetic pole piece.
+
+outer_pole_radius:
+  value: 55.0
+  unit: mm
+  source: assumed
+  status: ASSUMED
+  description: Inner radius of the outer magnetic pole piece.
+
+coil_inner_radius:
+  value: 55.0
+  unit: mm
+  source: assumed
+  status: ASSUMED
+  description: >
+    Inner radius of the electromagnetic coil windings. Set just outside
+    channel_outer_radius so the coil pack sits radially outboard of the
+    discharge channel (does not intersect it).
+
+coil_outer_radius:
+  value: 75.0
+  unit: mm
+  source: assumed
+  status: ASSUMED
+  description: Outer radius of the electromagnetic coil windings.
+
+coil_axial_length:
+  value: 15.0
+  unit: mm
+  source: assumed
+  status: ASSUMED
+  description: Axial length of each coil pack (inner and outer, symmetric by default).
+
+# -----------------------------------------------------------------------------
+# ANODE / EXIT PLANE
+# -----------------------------------------------------------------------------
+anode_axial_position:
+  value: 0.0
+  unit: mm
+  source: assumed
+  status: ASSUMED
+  description: Axial location of the anode; defines the origin (x = 0) of the coordinate system.
+
+exit_plane_position:
+  value: 25.0
+  unit: mm
+  source: assumed
+  status: ASSUMED
+  description: >
+    Axial location of the channel exit plane, set equal to channel_length
+    by default (anode at x=0, exit at x=channel_length).
+
+# -----------------------------------------------------------------------------
+# SENSOR LOCATIONS (per presentation: Hall sensor, thermocouple, optical
+# encoder, current/voltage monitoring — positions not specified, ASSUMED
+# reference placements for the digital twin)
+# -----------------------------------------------------------------------------
+sensors:
+  magnetic_field_sensor:
+    axial_position:
+      value: 25.0
+      unit: mm
+      source: assumed
+      status: ASSUMED
+      description: Hall-effect (A1302-class) sensor placed at the exit plane.
+    radial_position:
+      value: 50.0
+      unit: mm
+      source: assumed
+      status: ASSUMED
+      description: Radial position at outer wall.
+    theta_position:
+      value: 0.0
+      unit: deg
+      source: assumed
+      status: ASSUMED
+      description: Reference circumferential angle for the fixed sensor.
+
+  temperature_sensor:
+    axial_position:
+      value: 12.5
+      unit: mm
+      source: assumed
+      status: ASSUMED
+      description: K-type thermocouple placed at channel mid-length on the outer wall.
+    radial_position:
+      value: 50.0
+      unit: mm
+      source: assumed
+      status: ASSUMED
+      description: Outer wall radial position.
+    theta_position:
+      value: 0.0
+      unit: deg
+      source: assumed
+      status: ASSUMED
+      description: Reference circumferential angle.
+
+  optical_encoder:
+    axial_position:
+      value: 0.0
+      unit: mm
+      source: assumed
+      status: ASSUMED
+      description: Omron E6D-CWZ1E-class encoder mounted on the liner rotation shaft, behind the anode plane.
+
+# -----------------------------------------------------------------------------
+# DISCRETIZATION DEFAULTS (used consistently across all four simulation cases
+# per master prompt "fair comparison" requirement)
+# -----------------------------------------------------------------------------
+discretization:
+  theta_bins:
+    value: 72
+    unit: count
+    source: assumed
+    status: ASSUMED
+    description: Circumferential resolution (5 deg/bin default) for wall-exposure and erosion maps.
+  axial_bins:
+    value: 20
+    unit: count
+    source: assumed
+    status: ASSUMED
+    description: Axial resolution for wall-exposure and erosion maps.
