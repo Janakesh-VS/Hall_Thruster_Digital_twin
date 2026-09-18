@@ -1,0 +1,99 @@
+# =============================================================================
+# PROMETHEUS — Physics constants & propellant properties
+# =============================================================================
+# Fundamental constants are tagged SOURCE (CODATA / IUPAC — not assumptions).
+# Nothing here is thruster-specific; thruster-specific operating conditions
+# live in config/operating_conditions.yaml.
+# =============================================================================
+
+constants:
+  elementary_charge:
+    value: 1.602176634e-19
+    unit: C
+    source: "CODATA 2018 (exact, SI redefinition)"
+    status: SOURCE
+    description: Elementary charge e.
+  standard_gravity:
+    value: 9.80665
+    unit: m/s^2
+    source: "ISO 80000-3 (defined standard value)"
+    status: SOURCE
+    description: g0, used for specific-impulse calculation (Isp = v / g0).
+  atomic_mass_unit:
+    value: 1.66053906660e-27
+    unit: kg
+    source: "CODATA 2018"
+    status: SOURCE
+    description: Unified atomic mass unit (u), used to convert atomic weight to kg.
+
+# -----------------------------------------------------------------------------
+# Propellant species — standard atomic weights (IUPAC), singly-charged ion
+# assumed unless otherwise noted. Real Hall thrusters produce a mix of
+# singly- and doubly-charged ions; this reduced-order model assumes
+# predominantly singly-charged ions (a stated simplification, see
+# docs/EQUATIONS.md), consistent with the "reduced-order, not full kinetic"
+# scope defined in the master prompt.
+# -----------------------------------------------------------------------------
+propellants:
+  xenon:
+    symbol: "Xe"
+    atomic_mass_u:
+      value: 131.293
+      unit: u
+      source: "IUPAC standard atomic weights (2021)"
+      status: SOURCE
+      description: Standard atomic weight of xenon.
+    first_ionization_energy_eV:
+      value: 12.1298
+      unit: eV
+      source: "NIST Atomic Spectra Database"
+      status: SOURCE
+      description: First ionization energy of xenon (context only; not used in ion-velocity calc).
+    default_charge_state:
+      value: 1
+      unit: "e"
+      source: assumed
+      status: ASSUMED
+      description: Reduced-order model assumes predominantly singly-charged ions.
+
+  krypton:
+    symbol: "Kr"
+    atomic_mass_u:
+      value: 83.798
+      unit: u
+      source: "IUPAC standard atomic weights (2021)"
+      status: SOURCE
+      description: Standard atomic weight of krypton.
+    first_ionization_energy_eV:
+      value: 14.0
+      unit: eV
+      source: "NIST Atomic Spectra Database"
+      status: SOURCE
+      description: First ionization energy of krypton (context only).
+    default_charge_state:
+      value: 1
+      unit: "e"
+      source: assumed
+      status: ASSUMED
+      description: Reduced-order model assumes predominantly singly-charged ions.
+
+  argon:
+    symbol: "Ar"
+    atomic_mass_u:
+      value: 39.948
+      unit: u
+      source: "IUPAC standard atomic weights (2021)"
+      status: SOURCE
+      description: Standard atomic weight of argon.
+    first_ionization_energy_eV:
+      value: 15.76
+      unit: eV
+      source: "NIST Atomic Spectra Database"
+      status: SOURCE
+      description: First ionization energy of argon (context only).
+    default_charge_state:
+      value: 1
+      unit: "e"
+      source: assumed
+      status: ASSUMED
+      description: Reduced-order model assumes predominantly singly-charged ions.

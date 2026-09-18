@@ -1,0 +1,92 @@
+# =============================================================================
+# PROMETHEUS — Reference Operating Condition
+# =============================================================================
+# ASSUMED REFERENCE OPERATING CONDITION.
+#
+# These values make the reduced-order simulation runnable. They are chosen
+# to be broadly representative of a low/mid-power laboratory xenon Hall
+# thruster (consistent with published 300 V-class operating points such as
+# those reported by the University of Michigan PEPL group), NOT measured
+# from any PROMETHEUS hardware, which does not yet exist.
+#
+# All are USER-DEFINED / overridable at runtime via the physics model API.
+# =============================================================================
+
+reference_operating_point:
+  propellant:
+    value: "xenon"
+    unit: "n/a"
+    source: assumed
+    status: ASSUMED
+    description: Reference propellant species for the demonstration case.
+
+  discharge_voltage:
+    value: 300.0
+    unit: V
+    source: literature
+    status: LITERATURE
+    description: >
+      300 V is a widely reported operating condition in published xenon
+      Hall-thruster performance studies (e.g. Su et al., magnetically
+      shielded Hall thruster characterization). Used here as a plausible
+      reference point, not a PROMETHEUS-specific measurement.
+
+  discharge_current:
+    value: 4.5
+    unit: A
+    source: assumed
+    status: ASSUMED
+    description: >
+      Reference discharge current chosen to give a plausible kW-class
+      discharge power (~1.35 kW) at the reference voltage. Not measured.
+
+  mass_flow_rate:
+    value: 5.0
+    unit: mg/s
+    source: assumed
+    status: ASSUMED
+    description: Reference anode mass flow rate for a low/mid-power xenon thruster class.
+
+  magnetic_field_magnitude:
+    value: 0.015
+    unit: T
+    source: assumed
+    status: ASSUMED
+    description: >
+      Reference magnetic flux density magnitude near the channel exit
+      (150 G), order-of-magnitude consistent with published Hall-thruster
+      radial field strengths. Placeholder pending the Phase 5 magnetic
+      field model — treated as a scalar model INPUT here, not computed.
+
+  magnetic_field_axial_fraction:
+    value: 0.1
+    unit: "fraction"
+    source: assumed
+    status: ASSUMED
+    description: >
+      Fraction of |B| assumed axial (Bx) vs. radial (Br) at the reference
+      point; the real distribution comes from Phase 5. ASSUMED placeholder.
+
+  voltage_loss:
+    value: 0.0
+    unit: V
+    source: literature
+    status: LITERATURE
+    description: >
+      The Δ term in v_i = sqrt(2e(Vd - Δ)/m_i) (Boeuf & Garrigues, 2009,
+      arXiv:0810.3994, Eq. 2.17). Set to 0 here as the cited source does
+      for its baseline case ("voltage losses are neglected"); a nonzero
+      value can be supplied if better data becomes available.
+
+  mass_utilization_efficiency:
+    value: 0.7
+    unit: "fraction"
+    source: assumed
+    status: ASSUMED
+    description: >
+      Fraction of injected propellant mass flow assumed ionized and
+      exhausted as beam ions. Published xenon Hall thrusters report anode
+      efficiencies in roughly the 45-60% range at similar conditions
+      (Su et al., AIAA/JPP performance studies), of which mass utilization
+      is one component; 0.7 is a round, ASSUMED placeholder for this
+      reduced-order model, not a measured PROMETHEUS value.

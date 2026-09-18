@@ -1,0 +1,54 @@
+{
+  "timestamp_utc": "2026-09-18T04:31:18.976793+00:00",
+  "geometry_version": "0.1.0",
+  "model_status_note": "Digital-twin numerical result. Geometry is REFERENCE/ASSUMED (not flight hardware). Physics is a REDUCED-ORDER model. NOT experimentally validated.",
+  "operating_conditions": {
+    "propellant": "xenon",
+    "discharge_voltage_V": 300.0,
+    "discharge_current_A": 4.5,
+    "mass_flow_rate_mg_s": 5.0,
+    "magnetic_field_T": 0.015,
+    "voltage_loss_V": 0.0,
+    "mass_utilization_efficiency": 0.7
+  },
+  "geometry_key_dimensions_mm": {
+    "channel_length": 25.0,
+    "channel_inner_radius": 35.0,
+    "channel_outer_radius": 50.0,
+    "liner_radius": 42.5,
+    "liner_thickness": 1.5,
+    "wall_thickness": 3.0
+  },
+  "results": {
+    "propellant": "xenon",
+    "discharge_voltage_V": 300.0,
+    "discharge_current_A": 4.5,
+    "discharge_power_W": 1350.0,
+    "mass_flow_rate_kg_s": 4.9999999999999996e-06,
+    "magnetic_field_T": 0.015,
+    "ion_velocity_m_s": 20998.365332493147,
+    "ion_energy_eV": 300.0,
+    "ion_flux_particles_s": 1.6053782507280605e+19,
+    "thrust_ideal_N": 0.10499182666246573,
+    "thrust_estimate_N": 0.073494278663726,
+    "isp_estimate_s": 1498.866150290385,
+    "assumptions": [
+      "Ions assumed singly-charged (no multiply-charged ion correction).",
+      "Ions assumed created at a single location, falling through the full net potential (Vd - Delta).",
+      "Voltage loss Delta = 0.0 V (ASSUMED/LITERATURE \u2014 see config/operating_conditions.yaml).",
+      "Mass utilization efficiency eta_m = 0.7 (ASSUMED \u2014 see config/operating_conditions.yaml).",
+      "Magnetic field is a MODEL INPUT here, not computed (Phase 5 will add a real field model).",
+      "0-D model: no spatial resolution of the discharge channel."
+    ],
+    "model_status": {
+      "ion_velocity_m_s": "MODELLED (Boeuf & Garrigues, arXiv:0810.3994, Eq. 2.17)",
+      "ion_energy_eV": "MODELLED",
+      "discharge_power_W": "MODELLED (P = V*I)",
+      "ion_flux_particles_s": "ESTIMATED (depends on assumed mass_utilization_efficiency)",
+      "thrust_ideal_N": "IDEAL (upper bound, no losses)",
+      "thrust_estimate_N": "ESTIMATED",
+      "isp_estimate_s": "ESTIMATED",
+      "magnetic_field_T": "MODEL INPUT (not computed by this phase)"
+    }
+  }
+}
